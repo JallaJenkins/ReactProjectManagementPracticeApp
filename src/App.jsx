@@ -16,7 +16,7 @@ const TEST_LIST = [
 
 function App() {
 
-  const [projectList, setProjectList] = useState([]);
+  const [projectList, setProjectList] = useState(TEST_LIST);
   const [isAddingProject, setIsAddingProject] = useState(false);
 
   function handleAddProjectButton() {
@@ -25,7 +25,21 @@ function App() {
     }
   }
 
-  function handleSaveProjectButton() {
+  function handleSaveProjectButton(title, description, dueDate) {
+    console.log(title, description, dueDate);
+    setProjectList(prevList => {
+      prevList.push({
+        projectName: title,
+        description: description,
+        dueDate: dueDate,
+      });
+      return prevList;
+    })
+    console.log(projectList);
+    // setIsAddingProject(false);
+  }
+
+  function handleCancelButton() {
     setIsAddingProject(false);
   }
 
@@ -35,11 +49,13 @@ function App() {
       <main className="h-screen my-8 flex gap-8">
 
         <Sidebar
-          projectList={TEST_LIST}
+          projectList={projectList}
           addProject={handleAddProjectButton}
         />
 
-        {isAddingProject ? <AddProject saveProject={handleSaveProjectButton} /> : <NoProjects addProject={handleAddProjectButton} />}
+        {isAddingProject ? <AddProject
+          saveProject={handleSaveProjectButton}
+          cancel={handleCancelButton} /> : <NoProjects addProject={handleAddProjectButton} />}
         {/* <AddProject /> */}
 
       </main>
