@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Sidebar from "./components/Sidebar";
 import NoProjects from './components/NoProjects';
+import AddProject from './components/AddProject';
 
 const TEST_LIST = [
   {
@@ -13,22 +14,34 @@ const TEST_LIST = [
   }
 ];
 
-// console.log(TEST_LIST);
-
-
 function App() {
 
   const [projectList, setProjectList] = useState([]);
-  const [addingProject, setAddingProject] = useState(false);
+  const [isAddingProject, setIsAddingProject] = useState(false);
 
-  // setTaskList(TEST_LIST);
+  function handleAddProjectButton() {
+    if (!isAddingProject) {
+      setIsAddingProject(true);
+    }
+  }
+
+  function handleSaveProjectButton() {
+    setIsAddingProject(false);
+  }
 
 
   return (
     <>
       <main className="h-screen my-8 flex gap-8">
-        <Sidebar projectList={TEST_LIST} />
-        <NoProjects />
+
+        <Sidebar
+          projectList={TEST_LIST}
+          addProject={handleAddProjectButton}
+        />
+
+        {isAddingProject ? <AddProject saveProject={handleSaveProjectButton} /> : <NoProjects addProject={handleAddProjectButton} />}
+        {/* <AddProject /> */}
+
       </main>
     </>
   );

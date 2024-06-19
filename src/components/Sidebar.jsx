@@ -1,4 +1,4 @@
-export default function Sidebar({ projectList }) {
+export default function Sidebar({ projectList, addProject }) {
 
   const classSelectedItem = "mb-4 bg-stone-800 hover:bg-stone-700";
   const classItem = "mb-4 text-stone-400 hover:bg-stone-700 hover:text-stone-300";
@@ -11,7 +11,11 @@ export default function Sidebar({ projectList }) {
 
       <h2 className="mb-8 font-bold uppercase md:text-2xl text-stone-200">YOUR PROJECTS</h2>
 
-      <button className="mb-4 bg-stone-700 text-stone-400 px-3 py-2 rounded-md text-lg hover:bg-stone-600 hover:text-stone-100">+ Add project</button>
+      <button
+        className="mb-4 bg-stone-700 text-stone-400 px-3 py-2 rounded-md text-lg hover:bg-stone-600 hover:text-stone-100"
+        onClick={addProject}
+      >
+        + Add project</button>
 
       <ul className="mt-8 text-stone-200 text-xl">
 
@@ -19,7 +23,9 @@ export default function Sidebar({ projectList }) {
           return (<li
             key={project.projectName}
             className={project.selected ? classSelectedItem : classItem}>
-            <button className={classItemButton}>
+            <button
+              className={classItemButton}
+            >
               {project.projectName}
             </button>
           </li>)
